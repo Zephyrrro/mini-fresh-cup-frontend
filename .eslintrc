@@ -19,7 +19,7 @@
     "ecmaVersion": 2018,
     "sourceType": "module"
   },
-  "plugins": ["react", "import", "prettier"],
+  "plugins": ["react", "import", "prettier", "react-hooks"],
   "rules": {
     "react/jsx-filename-extension": [
       1,
@@ -37,5 +37,7 @@
     "import/prefer-default-export": "off",
     "react/jsx-wrap-multilines": "off",
     "no-console": "off",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn"
   }
 }

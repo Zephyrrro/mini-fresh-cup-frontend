@@ -12,8 +12,8 @@ import NotFound from '../layouts/404NotFound';
 
 export default function renderRoutes(routerConfig) {
   return (
-    <BasicLayout>
-      <Router>
+    <Router>
+      <BasicLayout>
         <Switch>
           {routerConfig.map((route, id) => {
             const { path, component, routes, ...others } = route;
@@ -63,9 +63,9 @@ export default function renderRoutes(routerConfig) {
             );
           })}
           <Route path="/404" render={() => <NotFound />} />
-          <Redirect from="*" to="/404" />
+          <Redirect to="/404" />
         </Switch>
-      </Router>
-    </BasicLayout>
+      </BasicLayout>
+    </Router>
   );
 }

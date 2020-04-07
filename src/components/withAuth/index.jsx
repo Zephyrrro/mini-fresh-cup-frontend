@@ -14,6 +14,8 @@ const generateAuth = (config = []) => {
 };
 
 export default function Auth({ children, path }) {
+  console.log(path);
+
   const authIdentity = localStorage.getItem('identity') || 'Visitor';
   const VisitorAuth = ['/', '/login', '/404'];
   const UserAuth = generateAuth(commonRouterConfig);

@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@ant-design/icons": "^4.0.5",
     "antd": "^4.1.1",
     "axios": "^0.19.2",
     "customize-cra": "^0.9.1",

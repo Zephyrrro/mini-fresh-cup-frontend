@@ -19,7 +19,7 @@
     "ecmaVersion": 2018,
     "sourceType": "module"
   },
-  "plugins": ["react", "import"],
+  "plugins": ["react", "import", "prettier"],
   "rules": {
     "react/jsx-filename-extension": [
       1,
@@ -34,6 +34,8 @@
     "react/jsx-props-no-spreading": "off",
     "import/no-unresolved": "off",
     "import/no-extraneous-dependencies": "off",
-    "react/jsx-wrap-multilines": "off"
+    "import/prefer-default-export": "off",
+    "react/jsx-wrap-multilines": "off",
+    "no-console": "off",
   }
 }

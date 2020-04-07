@@ -14,12 +14,12 @@ const generateAuth = (config = []) => {
 };
 
 export default function Auth({ children, path }) {
-  console.log(path);
-
   const authIdentity = localStorage.getItem('identity') || 'Visitor';
   const VisitorAuth = ['/', '/login', '/404'];
   const UserAuth = generateAuth(commonRouterConfig);
   const AdminAuth = generateAuth(adminRouterConfig).concat(UserAuth);
+
+  //  根据登录情况以及身份实现重定向
   if (
     (authIdentity === 'Visitor' && !VisitorAuth.includes(path)) ||
     (authIdentity === 'User' && !UserAuth.includes(path)) ||

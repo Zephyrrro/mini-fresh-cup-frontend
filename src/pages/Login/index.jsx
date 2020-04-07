@@ -7,14 +7,18 @@ import AdminForm from './components/AdminForm';
 
 import './index.less';
 
+//  Function Component 的使用
 function Login() {
   const history = useHistory();
   const { status, toggleStatus } = useContext(LoginStatusContext);
+
+  //  useState 返回的是一个 [value, function] 结构，可以使用 ES6 中的解构
   const [identity, setIdentity] = useState('user');
   const [title, setTitle] = useState('用 户 登 录');
 
+  //  useEffect 会在第一次渲染和依赖项改变时执行
   useEffect(() => {
-    //  使用上下文判断是否已经登录，如果已经登录则根据身份跳转到相应页面
+    //  使用 Context 判断是否已经登录，如果已经登录则根据身份跳转到相应页面
     if (status) {
       if (localStorage.getItem('identity') === 'User') {
         history.push('/answer');
@@ -22,8 +26,9 @@ function Login() {
         history.push('/admin/question/add');
       }
     }
-  }, [status, history]);
+  }, [status, history]); //  依赖于 status 和 history
 
+  //  返回 JSX 元素，用于渲染
   return (
     <div className="login-container">
       <Card
@@ -51,7 +56,7 @@ function Login() {
     </div>
   );
 }
-
+//  Css in JS，各个属性使用小驼峰命名，不再用原来的 - 连接
 const styles = {
   cardHeader: {
     width: '70%',

@@ -8,7 +8,7 @@ import {
 } from 'react-router-dom';
 import Auth from '@/components/withAuth';
 import BasicLayout from '@/layouts/BasicLayout';
-import NotFound from '../layouts/404NotFound';
+import NotFound from '../layouts/NotFound';
 
 export default function renderRoutes(routerConfig) {
   return (

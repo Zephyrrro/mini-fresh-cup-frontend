@@ -1,27 +1,19 @@
-import React, { useState } from 'react';
-import ToolBar from '@/components/ToolBar';
+import React from 'react';
 import { Layout } from 'antd';
-import { LoginStatusContext } from '@/store/context';
+import LoginStatusProvider from './ContextProvider';
 
 import './index.less';
 
 const { Content } = Layout;
 
 export default function BasicLayout({ children }) {
-  const defaultLoginStatus =
-    sessionStorage.getItem('token') && localStorage.getItem('identity');
-  const [loginStatus, setLoginStatus] = useState(defaultLoginStatus);
-
   return (
     <Layout>
-      <LoginStatusContext.Provider
-        value={{ status: loginStatus, toggleStatus: setLoginStatus }}
-      >
-        <ToolBar isLogged={loginStatus} />
+      <LoginStatusProvider>
         <Content className="site-layout" style={{ marginTop: 64 }}>
           <div className="site-layout-background">{children}</div>
         </Content>
-      </LoginStatusContext.Provider>
+      </LoginStatusProvider>
     </Layout>
   );
 }

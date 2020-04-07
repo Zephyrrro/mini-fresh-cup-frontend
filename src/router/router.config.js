@@ -1,4 +1,4 @@
-import AdminLayout from '../layouts/AdminLayout';
+import AdminLayout from '../pages/Admin';
 import Home from '../pages/Home';
 import Login from '../pages/Login';
 import Answer from '../pages/Answer';

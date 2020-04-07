@@ -1,68 +1,91 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## mini_fresh_cup_frontend
 
-## Available Scripts
+简易版新生杯前端
 
-In the project directory, you can run:
+## 技术栈
 
-### `yarn start`
+`React` + `Redux` + `Antd` + `axios`
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## 项目运行
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+```bash
+## Dependencies install
+yarn install # or npm install
 
-### `yarn test`
+## Run the app
+yarn start # or npm run start
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Build the app
+yarn build # or npm run build
+```
 
-### `yarn build`
+## 食用指北
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- api:  http://47.106.250.72:8889/api/ 
+- Backend Project:  https://github.com/ChenKS12138/simple-fresh-cup-backend 
+- React.js:  https://zh-hans.reactjs.org/ 
+- Ant Design:  https://ant.design/index-cn 
+- redux.js:  https://redux.js.org/ 
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+## 目录结构
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+mini-fresh-cup
+├── config-overrides.js                   webpack override
+├── jsconfig.json
+├── package.json                          npm脚本，依赖等信息
+├── public
+│   ├── favicon.ico
+│   ├── index.html
+│   ├── manifest.json
+│   └── robots.txt
+├── README.md
+├── src
+│   ├── api                               API接口
+│   │   └── index.js
+│   ├── App.js
+│   ├── components                        公共级组件
+│   │   ├── ToolBar
+│   │   │   ├── index.jsx
+│   │   │   └── index.less
+│   │   └── withAuth
+│   │       └── index.jsx
+│   ├── index.js                          入口文件
+│   ├── index.less                        使用less语法的stylesheet
+│   ├── layouts                           基本布局组件
+│   │   ├── BasicLayout                   所有页面的容器
+│   │   │   ├── ContextProvider.jsx
+│   │   │   ├── index.jsx
+│   │   │   └── index.less
+│   │   └── NotFound                      404页面
+│   │       └── index.jsx
+│   ├── pages                             页面目录
+│   │   ├── Admin
+│   │   │   ├── index.jsx
+│   │   │   ├── Notice
+│   │   │   │   └── EditNotice.jsx
+│   │   │   └── Question
+│   │   │       ├── AddQuestion.jsx
+│   │   │       └── EditQuesion.jsx
+│   │   ├── Answer
+│   │   │   └── index.jsx
+│   │   ├── Home
+│   │   │   ├── index.jsx
+│   │   │   └── index.less
+│   │   ├── Login
+│   │   │   ├── components                当前页面的组件
+│   │   │   │   ├── AdminForm.jsx         自定义组件
+│   │   │   │   └── UserForm.jsx
+│   │   │   ├── index.jsx                 页面级组件
+│   │   │   └── index.less
+│   │   └── Notice
+│   │       └── index.jsx
+│   ├── router
+│   │   ├── router.config.js              路由配置文件
+│   │   └── router.jsx                    Router生成
+│   ├── serviceWorker.js                  PWA配置，默认不开启
+│   └── store                             redux/context相关
+│       └── context.js                    React.Context暴露
+└── yarn.lock
+```
 
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify

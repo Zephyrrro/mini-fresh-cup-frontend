@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Input, Form, Button } from 'antd';
 import { UserOutlined, LockOutlined, MailOutlined } from '@ant-design/icons';
-import { login } from '@/api/index';
+import { login, registry } from '@/api/index';
 
 export default function UserForm({
   style,
@@ -23,7 +23,17 @@ export default function UserForm({
         toggleLogin(true);
       }
     } else {
-      //  调用注册接口
+      let { data } = await registry(values);
+      if (data && data.success) {
+        const { email } = values;
+        const { password } = values;
+        data = await login('user', { email, password });
+        if (data.data && data.data.success) {
+          localStorage.setItem('identity', 'User');
+          sessionStorage.setItem('token', data.data.bearToken);
+          toggleLogin(true);
+        }
+      }
     }
     setLoading(false);
   };

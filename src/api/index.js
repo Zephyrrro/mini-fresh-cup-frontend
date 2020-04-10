@@ -36,3 +36,10 @@ export const login = (identity, data) => {
     return { data: null };
   });
 };
+
+export const registry = data => {
+  return request.post(`/user/registry`, data).then(res => {
+    const { success, message } = res.data;
+    return { data: { success, message } };
+  });
+};

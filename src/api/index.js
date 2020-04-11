@@ -43,3 +43,10 @@ export const registry = data => {
     return { data: { success, message } };
   });
 };
+
+export const addQuestion = data => {
+  return request.post(`/admin/addQuestion`, data).then(res => {
+    const { code, message } = res.data;
+    return { data: { code, message } };
+  });
+};

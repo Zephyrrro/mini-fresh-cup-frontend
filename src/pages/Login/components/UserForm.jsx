@@ -23,6 +23,7 @@ export default function UserForm({
         toggleLogin(true);
       }
     } else {
+      // 调用注册接口
       let { data } = await registry(values);
       if (data && data.success) {
         const { email } = values;

@@ -1,19 +1,37 @@
-import React, { useState } from 'react';
+import React, { Component } from 'react';
 import ToolBar from '@/components/ToolBar';
 import { LoginStatusContext } from '@/store/context';
 
-export default function LoginStatusProvider({ children }) {
-  //  登录状态的总入口，组件可以通过 useContext 来获取以及修改登录状态
-  const defaultLoginStatus =
-    sessionStorage.getItem('token') && localStorage.getItem('identity');
-  const [loginStatus, setLoginStatus] = useState(defaultLoginStatus);
+class LoginStatusProvider extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      loginStatus: false,
+    };
+  }
 
-  return (
-    <LoginStatusContext.Provider
-      value={{ status: loginStatus, toggleStatus: setLoginStatus }}
-    >
-      <ToolBar isLogged={loginStatus} />
-      {children}
-    </LoginStatusContext.Provider>
-  );
+  componentDidMount() {
+    const defaultLoginStatus =
+      sessionStorage.getItem('token') && localStorage.getItem('identity');
+    this.setState({ loginStatus: defaultLoginStatus });
+  }
+
+  toggleStatus = value => {
+    this.setState({ loginStatus: value });
+  };
+
+  render() {
+    const { loginStatus } = this.state;
+    const { children } = this.props;
+    return (
+      <LoginStatusContext.Provider
+        value={{ status: loginStatus, toggleStatus: this.toggleStatus }}
+      >
+        <ToolBar isLogged={loginStatus} />
+        {children}
+      </LoginStatusContext.Provider>
+    );
+  }
 }
+
+export default LoginStatusProvider;

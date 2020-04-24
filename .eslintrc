@@ -38,6 +38,11 @@
     "react/jsx-wrap-multilines": "off",
     "no-console": "off",
     "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn"
-  }
+    "react-hooks/exhaustive-deps": "warn",
+    "no-unused-vars": "warn",
+    "react/no-unused-state": "warn",
+    "react/prefer-stateless-function": "warn",
+    "react/static-property-placement": "warn"
+  },
+  "parser": "babel-eslint"
 }

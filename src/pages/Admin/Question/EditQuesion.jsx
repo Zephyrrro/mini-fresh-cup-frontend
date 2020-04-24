@@ -12,7 +12,7 @@ function GetData(){
 }
 
 export default function EditQuestion() {
-  return   <Table dataSource={GetData}>
+  return   (<Table dataSource={GetData}>
     <Column title="题目描述" dataIndex="title" key="title" />
     <Column title="答案" dataIndex="content" key="content" />
     <Column
@@ -26,5 +26,5 @@ export default function EditQuestion() {
         </span>
       )}
     />
-  </Table>;
+  </Table>);
 }

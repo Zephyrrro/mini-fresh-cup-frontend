@@ -24,12 +24,18 @@ class Excel extends React.Component {
           }
         }
         // 最终获取到并且格式化后的 json 数据
+
+        //此处为Promise处理多个异步任务
+        let task=[];
         for (let i = 0; i < data.length; i++) {
-          addQuestion(data[i]).then(r=>{
-            console.log(r);
-          })
+          task.push(new Promise(resolve => {
+            addQuestion(data[i]).then(r=>{
+              console.log(r);
+            });
+            resolve("Success");
+          }));
         }
-        message.success('成功上传'+data.length+'道题目！');
+        Promise.all(task).then(message.success('成功上传'+data.length+'道题目！'));
       } catch (e) {
         // 这里可以抛出文件类型错误不正确的相关提示
         message.error('文件类型不正确！');

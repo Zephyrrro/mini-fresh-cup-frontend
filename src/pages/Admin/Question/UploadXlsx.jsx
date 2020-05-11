@@ -2,6 +2,7 @@ import React from 'react';
 import { Button,message} from 'antd';
 import { addQuestion } from '@/api/index';
 import XLSX from 'xlsx';
+import './UploadXlsx.less';
 
 export class Excel extends React.Component {
   onImportExcel = file => {
@@ -29,7 +30,7 @@ export class Excel extends React.Component {
         const task = data.map(question => {
           return new Promise((resolve, reject) => {
             addQuestion(question).then(res => {
-              console.log(res);
+            message.success('上传成功！');
               resolve(res)
             }).catch(err => {
               reject(err)
@@ -47,13 +48,7 @@ export class Excel extends React.Component {
 
   render() {
     return (
-      <div>
-        <Button>
-          <input type='file' accept='.xlsx, .xls' onChange={this.onImportExcel}/>
-          <span>上传文件</span>
-        </Button>
-        支持 .xlsx、.xls 格式的文件
-      </div>
+          <input className="upload-button" type='file' accept='.xlsx, .xls' onChange={this.onImportExcel}/>
     );
   }
 }

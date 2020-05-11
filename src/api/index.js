@@ -38,8 +38,9 @@ export const login = (identity, data) => {
 };
 
 export const registry = data => {
-  return request.post(`/user/registry`, data).then(res => {
-    const { success, message } = res.data;
-    return { data: { success, message } };
-  });
+  return request.post(`/user/registry`, data);
+};
+
+export const addQuestion = data => {
+  return request.post(`/admin/addQuestion`, data);
 };

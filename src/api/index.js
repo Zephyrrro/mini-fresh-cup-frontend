@@ -46,7 +46,7 @@ export const addQuestion = data => {
 };
 
 export const getNotice = () => {
-  return request.get('/user/getNotice');
+  return request.get(`/user/getNotice`);
 };
 
 export const addNotice = data => {

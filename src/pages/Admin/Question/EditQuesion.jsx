@@ -38,15 +38,15 @@ class QuestionEditor extends React.Component {
     return (
       <div className="question-editor">
         <div>
-          <label>题目：</label>
+          题目：
           <Input.TextArea rows={4} name="title" onChange={this.inputChange}/>
         </div>
         <div>
-          <label>答案：</label>
+          答案：
           <Input.TextArea rows={4} name="content" onChange={this.inputChange}/>
         </div>
         <Button onClick={this.Finish}>
-          <span>添加题目</span>
+          添加题目
         </Button>
         <Excel />
       </div>

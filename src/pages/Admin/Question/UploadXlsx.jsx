@@ -1,8 +1,8 @@
 import React from 'react';
 import { message} from 'antd';
-import { addQuestion } from '@/api/index';
+import { addQuestion,getNotice } from '@/api/index';
 import XLSX from 'xlsx';
-import './UploadXlsx.less';
+import './QustionEditor.less';
 
 export class Excel extends React.Component {
   onImportExcel = file => {

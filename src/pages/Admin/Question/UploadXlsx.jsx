@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button,message} from 'antd';
+import { message} from 'antd';
 import { addQuestion } from '@/api/index';
 import XLSX from 'xlsx';
 import './UploadXlsx.less';
@@ -25,7 +25,6 @@ export class Excel extends React.Component {
           }
         }
         // 最终获取到并且格式化后的 json 数据
-
         //此处为Promise处理多个异步任务
         const task = data.map(question => {
           return new Promise((resolve, reject) => {

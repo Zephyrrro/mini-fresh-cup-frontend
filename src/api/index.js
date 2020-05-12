@@ -44,3 +44,19 @@ export const registry = data => {
 export const addQuestion = data => {
   return request.post(`/admin/addQuestion`, data);
 };
+
+export const getNotice = () => {
+  return request.get('/user/getNotice');
+};
+
+export const addNotice = data => {
+  return request.post(`/admin/addNotice`, data);
+};
+
+export const editNotice = data => {
+  return request.post(`/admin/editNotice`, data);
+};
+
+export const deleteNotice = data => {
+  return request.post(`/admin/deleteNotice`, data);
+};

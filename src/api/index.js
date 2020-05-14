@@ -49,6 +49,11 @@ export const getNotice = () => {
   return request.get(`/user/getNotice`);
 };
 
+export const getQuestion = () => {
+  return request.get(`/user/getQuestion`);
+};
+
+
 export const addNotice = data => {
   return request.post(`/admin/addNotice`, data);
 };
@@ -59,4 +64,8 @@ export const editNotice = data => {
 
 export const deleteNotice = data => {
   return request.post(`/admin/deleteNotice`, data);
+};
+
+export const deleteQuestion = data => {
+  return request.post(`/admin/deleteQuestion`, data);
 };

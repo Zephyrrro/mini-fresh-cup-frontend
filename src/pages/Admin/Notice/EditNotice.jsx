@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, Input, Button, message, Popconfirm, Table, Space, Form } from 'antd';
+import { Row, Col, Input, Button, message, Popconfirm, Table, Space } from 'antd';
 import { DeleteOutlined, EditOutlined, SaveOutlined, CloseOutlined } from '@ant-design/icons';
 import { addNotice, getNotice, deleteNotice, editNotice } from '@/api/index';
 import './EditNotice.less';
@@ -43,13 +43,12 @@ class NoticeTable extends React.Component {
     super(props);
     this.state = {
       dataArray: [],
-      editable: -1,
-      editableId: -1,
+      editable: -1,//-1为初始状态
+      editableId: -1,//-1为初始状态
       editTitle: '',
       editContent: ''
     };
     this.handleDelete.bind(this);
-    this.formRef = React.createRef();
   }
 
   handleDelete = id => {
@@ -66,7 +65,7 @@ class NoticeTable extends React.Component {
         key: 'id',
         align: 'center',
         sorter: (a, b) => a.id - b.id,
-        defaultSortOrder:'ascend'
+        defaultSortOrder: 'ascend'
       },
       {
         title: '标题',

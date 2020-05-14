@@ -1,6 +1,6 @@
 import React from 'react';
 import { message} from 'antd';
-import { addQuestion,getNotice } from '@/api/index';
+import { addQuestion } from '@/api/index';
 import XLSX from 'xlsx';
 import './QustionEditor.less';
 
@@ -26,6 +26,7 @@ export class Excel extends React.Component {
         }
         // 最终获取到并且格式化后的 json 数据
         //此处为Promise处理多个异步任务
+        // eslint-disable-next-line
         const task = data.map(question => {
           return new Promise((resolve, reject) => {
             addQuestion(question).then(res => {

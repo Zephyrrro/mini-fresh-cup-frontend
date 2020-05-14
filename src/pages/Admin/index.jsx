@@ -17,6 +17,9 @@ export default function AdminLayout({ children }) {
         break;
       case '3':
         history.push('/admin/question/view');
+        break;
+      default:
+        break;
     }
   };
   //  这里可以写管理员的侧边栏，这样组件里可以专注于组件本身逻辑

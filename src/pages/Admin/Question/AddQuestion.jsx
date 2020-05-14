@@ -1,30 +1,78 @@
 import React from 'react';
-//import { Table } from 'antd';
+import { Button, Popconfirm, Space, Table } from 'antd';
+import { deleteQuestion, getQuestion } from '@/api';
+import { DeleteOutlined } from '@ant-design/icons';
 
-/*class QuestionList extends React.Component {
+class QuestionTable extends React.Component {
+  GetQuestion() {
+    getQuestion().then(res => {
+      this.setState({
+        dataArray: res.data.data.questions
+      });
+    });
+  }
+
   constructor(props) {
     super(props);
-    this.state =[];
+    this.state = {
+      dataArray: []
+    };
+    this.GetQuestion();
+    this.handleDelete.bind(this);
   }
 
-  render(){
-    return   (<Table dataSource={this.state}>
-      <Column title="题目描述" dataIndex="title" key="title" />
-      <Column title="答案" dataIndex="content" key="content" />
-      <Column
-        title="Action"
-        key="action"
-        render={(text, record) => (
-          <span>
-          <a style={{ marginRight: 16 }}>上升</a>
-          <a style={{ marginRight: 16 }}>下降</a>
-          <a>删除</a>
-        </span>
-        )}
-      />
-    </Table>);
+  handleDelete = id => {
+    deleteQuestion({ id: id }).then(
+      this.GetQuestion()
+    );
+  };
+
+  render() {
+    const columns = [
+      {
+        title: 'id',
+        dataIndex: 'id',
+        key: 'id',
+        align: 'center',
+        sorter: (a, b) => a.id - b.id,
+        defaultSortOrder: 'ascend'
+      },
+      {
+        title: '标题',
+        dataIndex: 'title',
+        key: 'title'
+      },
+      {
+        title: '内容',
+        dataIndex: 'content',
+        key: 'content'
+      },
+      {
+        title: '操作',
+        key: 'action',
+        align: 'center',
+        render: (text, record) => {
+          return (<Space>
+            <Popconfirm
+              title="确定删除吗?"
+              onConfirm={() => this.handleDelete(record.id)}
+            >
+              <Button icon={<DeleteOutlined/>}>删除</Button>
+            </Popconfirm>
+          </Space>);
+        }
+      }
+    ];
+    return (
+      <Table bordered columns={columns} dataSource={this.state.dataArray}/>
+    );
   }
-}*/
+}
+
 export default function AddQuesion() {
-  return <div className="login">AddQuesion Page</div>;
+  return (
+    <div className="QuestionTable">
+      <QuestionTable/>
+    </div>
+  );
 }

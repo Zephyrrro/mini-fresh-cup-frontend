@@ -1,12 +1,11 @@
 import React from 'react';
 import { Row, Col, Input, Button, message, Popconfirm, Table, Space, Form } from 'antd';
 import { DeleteOutlined, EditOutlined, SaveOutlined, CloseOutlined } from '@ant-design/icons';
-import { addNotice, getNotice, deleteNotice } from '@/api/index';
+import { addNotice, getNotice, deleteNotice, editNotice } from '@/api/index';
 import './EditNotice.less';
 
 
 class NoticeTable extends React.Component {
-  formRef = React.createRef();
   EditableCell = ({
                     editing,
                     dataIndex,
@@ -20,16 +19,19 @@ class NoticeTable extends React.Component {
     return (
       <td {...restProps}>
         {editing ? (
-          <Form ref={this.formRef.current}>
-            <Form.Item
-              name={dataIndex}
-              style={{
-                margin: 0
-              }}
-            >
-              <Input/>
-            </Form.Item>
-          </Form>
+          <Input style={{
+            margin: 0
+          }}
+                 value={dataIndex === 'title' ? this.state.editTitle : this.state.editContent}
+                 onChange={e => {
+                   e.persist();
+                   if (dataIndex === 'title') {
+                     this.setState({ editTitle: e.target.value });
+                   } else {
+                     this.setState({ editContent: e.target.value });
+                   }
+                 }}
+          />
         ) : (
           children
         )}
@@ -42,9 +44,12 @@ class NoticeTable extends React.Component {
     this.state = {
       dataArray: [],
       editable: -1,
-      editableId: -1
+      editableId: -1,
+      editTitle: '',
+      editContent: ''
     };
     this.handleDelete.bind(this);
+    this.formRef = React.createRef();
   }
 
   handleDelete = id => {
@@ -59,7 +64,9 @@ class NoticeTable extends React.Component {
         title: 'id',
         dataIndex: 'id',
         key: 'id',
-        align: 'center'
+        align: 'center',
+        sorter: (a, b) => a.id - b.id,
+        defaultSortOrder:'ascend'
       },
       {
         title: '标题',
@@ -82,6 +89,18 @@ class NoticeTable extends React.Component {
           return editable ? (
             <Space>
               <Button icon={<SaveOutlined/>} onClick={() => {
+                editNotice({
+                  id: record.id,
+                  title: this.state.editTitle,
+                  content: this.state.editContent
+                }).then(res => {
+                  console.log(res);
+                  this.setState({
+                    editable: -1,
+                    editableId: -1
+                  });
+                  this.props.handleUpdate();
+                });
               }}>保存</Button>
               <Button icon={<CloseOutlined/>} onClick={() => {
                 this.setState({ editable: -1, editableId: -1 });
@@ -92,11 +111,9 @@ class NoticeTable extends React.Component {
                     icon={<EditOutlined/>} onClick={() => {
               this.setState({
                 editable: record.id,
-                editableId: record.id
-              });
-              this.formRef.current.setFieldsValue({
-                title: record.title,
-                content: record.content
+                editableId: record.id,
+                editTitle: record.title,
+                editContent: record.content
               });
             }}>编辑</Button>
             <Popconfirm

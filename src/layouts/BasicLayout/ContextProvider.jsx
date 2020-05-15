@@ -7,7 +7,6 @@ export default function LoginStatusProvider({ children }) {
   const defaultLoginStatus =
     sessionStorage.getItem('token') && localStorage.getItem('identity');
   const [loginStatus, setLoginStatus] = useState(defaultLoginStatus);
-
   return (
     <LoginStatusContext.Provider
       value={{ status: loginStatus, toggleStatus: setLoginStatus }}

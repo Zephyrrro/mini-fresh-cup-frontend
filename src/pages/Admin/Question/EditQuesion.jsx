@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Input} from 'antd';
+import { Button, Input,message} from 'antd';
 import { addQuestion } from '@/api/index';
 import { Excel } from '@/pages/Admin/Question/UploadXlsx';
 import './QustionEditor.less';
@@ -28,9 +28,8 @@ class QuestionEditor extends React.Component {
   }
 
   Finish() {
-    console.log('Finish');
     addQuestion(this.state).then(r => {
-      console.log(r);
+      message.success('添加成功！');
     });
   }
 
@@ -38,15 +37,15 @@ class QuestionEditor extends React.Component {
     return (
       <div className="question-editor">
         <div>
-          <label>题目：</label>
+          题目：
           <Input.TextArea rows={4} name="title" onChange={this.inputChange}/>
         </div>
         <div>
-          <label>答案：</label>
+          答案：
           <Input.TextArea rows={4} name="content" onChange={this.inputChange}/>
         </div>
         <Button onClick={this.Finish}>
-          <span>添加题目</span>
+          添加题目
         </Button>
         <Excel />
       </div>

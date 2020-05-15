@@ -1,6 +1,7 @@
-import React from 'react';
+import React,{useContext} from 'react';
 import { useHistory } from 'react-router-dom';
 import { Layout, Button } from 'antd';
+import { LoginStatusContext } from '@/store/context';
 import './index.less';
 
 const { Header } = Layout;
@@ -8,12 +9,15 @@ const { Header } = Layout;
 function ToolBar({ isLogged }) {
   //  使用 hooks 获取在 Router 中注入的 history 对象
   const history = useHistory();
+  const { status, toggleStatus } = useContext(LoginStatusContext);
 
   const handleClick = () => {
     //  根据是否已经登录实现不同功能
     if (!isLogged) {
       history.push('/login');
     } else {
+      toggleStatus(false);
+      history.push('/login');
       //  退出登录
     }
   };

@@ -8,19 +8,7 @@ const { Content, Sider } = Layout;
 export default function AdminLayout({ children }) {
   const history = useHistory();
   const handleOnClick = e => {
-    switch (e.key) {
-      case '1':
-        history.push('/admin/notice/edit');
-        break;
-      case '2':
-        history.push('/admin/question/add');
-        break;
-      case '3':
-        history.push('/admin/question/view');
-        break;
-      default:
-        break;
-    }
+    history.push(`/admin/${e.key}`);
   };
   //  这里可以写管理员的侧边栏，这样组件里可以专注于组件本身逻辑
   return (
@@ -34,11 +22,11 @@ export default function AdminLayout({ children }) {
             mode="inline"
             onClick={handleOnClick}
           >
-            <Menu.Item icon={<MessageOutlined/>} key="1">
+            <Menu.Item icon={<MessageOutlined/>} key="notice/edit">
               公告管理
             </Menu.Item>
-            <Menu.Item icon={<FileAddOutlined/>} key="2">添加题目</Menu.Item>
-            <Menu.Item icon={<FolderViewOutlined/>} key="3">查看题目</Menu.Item>
+            <Menu.Item icon={<FileAddOutlined/>} key="question/add">添加题目</Menu.Item>
+            <Menu.Item icon={<FolderViewOutlined/>} key="question/view">查看题目</Menu.Item>
           </Menu>
         </Sider>
         <Layout style={{ padding: '0 24px 24px' }}>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Popconfirm, Space, Table } from 'antd';
-import { deleteQuestion, getQuestion } from '@/api';
+import { deleteQuestion, getNotice, getQuestion } from '@/api';
 import { DeleteOutlined } from '@ant-design/icons';
 
 class QuestionTable extends React.Component {
@@ -17,10 +17,11 @@ class QuestionTable extends React.Component {
     this.state = {
       dataArray: []
     };
-    this.GetQuestion();
     this.handleDelete.bind(this);
   }
-
+  componentDidMount() {
+    this.GetQuestion();
+  }
   handleDelete = id => {
     deleteQuestion({ id: id }).then(
       this.GetQuestion()

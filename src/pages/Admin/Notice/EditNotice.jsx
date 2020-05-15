@@ -9,10 +9,6 @@ class NoticeTable extends React.Component {
   EditableCell = ({
                     editing,
                     dataIndex,
-                    title,
-                    inputType,
-                    record,
-                    index,
                     children,
                     ...restProps
                   }) => {
@@ -49,6 +45,7 @@ class NoticeTable extends React.Component {
       editContent: ''
     };
     this.handleDelete.bind(this);
+    //this.handleSave.bind(this);
   }
 
   handleDelete = id => {
@@ -57,7 +54,53 @@ class NoticeTable extends React.Component {
     );
   };
 
+  handleSave = (record, e) => (
+    editNotice({
+      id: record.id,
+      title: this.state.editTitle,
+      content: this.state.editContent
+    }).then(res => {
+      console.log(res);
+      this.setState({
+        editable: -1,
+        editableId: -1
+      });
+      this.props.handleUpdate();
+    }));
+
+  ActionButton(record) {
+    const { editableId } = this.state;
+    const editable = this.state.editable === record.id;
+    return editable ? (
+      <Space>
+        <Button icon={<SaveOutlined/>} onClick={(e) => this.handleSave(record, e)}>保存</Button>
+        <Button icon={<CloseOutlined/>} onClick={() => {
+          this.setState({ editable: -1, editableId: -1 });
+        }}>取消</Button>
+      </Space>
+    ) : (<Space>
+      <Button disabled={this.state.editableId !== -1 && this.state.editableId !== record.id}
+              icon={<EditOutlined/>} onClick={() => {
+        this.setState({
+          editable: record.id,
+          editableId: record.id,
+          editTitle: record.title,
+          editContent: record.content
+        });
+      }}>编辑</Button>
+      <Popconfirm
+        title="确定删除吗?"
+        onConfirm={() => this.handleDelete(record.id)}
+      >
+        <Button disabled={editableId !== -1 && editableId !== record.id}
+                icon={<DeleteOutlined/>}>删除</Button>
+      </Popconfirm>
+    </Space>);
+  }
+
   render() {
+    const { editable } = this.state;
+    const { dataArray } = this.props;
     const columns = [
       {
         title: 'id',
@@ -83,47 +126,7 @@ class NoticeTable extends React.Component {
         title: '操作',
         key: 'action',
         align: 'center',
-        render: (text, record) => {
-          const editable = this.state.editable === record.id;
-          return editable ? (
-            <Space>
-              <Button icon={<SaveOutlined/>} onClick={() => {
-                editNotice({
-                  id: record.id,
-                  title: this.state.editTitle,
-                  content: this.state.editContent
-                }).then(res => {
-                  console.log(res);
-                  this.setState({
-                    editable: -1,
-                    editableId: -1
-                  });
-                  this.props.handleUpdate();
-                });
-              }}>保存</Button>
-              <Button icon={<CloseOutlined/>} onClick={() => {
-                this.setState({ editable: -1, editableId: -1 });
-              }}>取消</Button>
-            </Space>
-          ) : (<Space>
-            <Button disabled={this.state.editableId !== -1 && this.state.editableId !== record.id}
-                    icon={<EditOutlined/>} onClick={() => {
-              this.setState({
-                editable: record.id,
-                editableId: record.id,
-                editTitle: record.title,
-                editContent: record.content
-              });
-            }}>编辑</Button>
-            <Popconfirm
-              title="确定删除吗?"
-              onConfirm={() => this.handleDelete(record.id)}
-            >
-              <Button disabled={this.state.editableId !== -1 && this.state.editableId !== record.id}
-                      icon={<DeleteOutlined/>}>删除</Button>
-            </Popconfirm>
-          </Space>);
-        }
+        render: (text, record) => this.ActionButton(text, record)
       }
     ];
     const mergedColumns = columns.map(col => {
@@ -138,7 +141,7 @@ class NoticeTable extends React.Component {
           inputType: 'text',
           dataIndex: col.dataIndex,
           title: col.title,
-          editing: this.state.editable === record.id
+          editing: editable === record.id
         })
       };
     });
@@ -148,7 +151,7 @@ class NoticeTable extends React.Component {
           cell: this.EditableCell
         }
       }}
-             bordered columns={mergedColumns} dataSource={this.props.dataArray}/>
+             bordered columns={mergedColumns} dataSource={dataArray}/>
     );
   }
 }
@@ -165,15 +168,9 @@ class NoticeAdd extends React.Component {
   }
 
   inputChange(e) {
-    if (e.target.name === 'title') {
-      this.setState({
-        title: e.target.value
-      });
-    } else {
-      this.setState({
-        content: e.target.value
-      });
-    }
+    this.setState({
+      [e.target.name]: e.target.value
+    });
   }
 
   Finish() {
@@ -217,7 +214,14 @@ class NoticeEditor extends React.Component {
     this.state = {
       dataArray: []
     };
-    this.GetNotice();
+  }
+
+  componentDidMount() {
+    getNotice().then(res => {
+      this.setState({
+        dataArray: res.data.data.notices
+      });
+    });
   }
 
   render() {

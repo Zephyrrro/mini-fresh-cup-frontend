@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Popconfirm, Space, Table } from 'antd';
-import { deleteQuestion, getNotice, getQuestion } from '@/api';
+import { deleteQuestion, getQuestion } from '@/api';
 import { DeleteOutlined } from '@ant-design/icons';
 
 class QuestionTable extends React.Component {
@@ -36,7 +36,7 @@ class QuestionTable extends React.Component {
         key: 'id',
         align: 'center',
         sorter: (a, b) => a.id - b.id,
-        defaultSortOrder: 'ascend'
+        defaultSortOrder: 'ascend',
       },
       {
         title: '标题',

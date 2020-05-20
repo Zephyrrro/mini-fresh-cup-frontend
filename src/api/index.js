@@ -69,3 +69,11 @@ export const deleteNotice = data => {
 export const deleteQuestion = data => {
   return request.post(`/admin/deleteQuestion`, data);
 };
+
+export const getQuestionAnswer = () => {
+  return request.get(`/user/getQuestionAnswer`);
+};
+
+export const answerQuestion = data => {
+  return request.post(`/user/answerQuestion`, data);
+};

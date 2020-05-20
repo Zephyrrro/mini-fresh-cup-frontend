@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Input, Form, Button } from 'antd';
+import { Input, Form, Button,message } from 'antd';
 import { UserOutlined, LockOutlined, MailOutlined } from '@ant-design/icons';
 import { login, registry } from '@/api/index';
 
@@ -21,6 +21,8 @@ export default function UserForm({
         localStorage.setItem('identity', 'User');
         sessionStorage.setItem('token', data.bearToken);
         toggleLogin(true);
+      }else{
+        message.error("登陆失败！");
       }
     } else {
       // 调用注册接口

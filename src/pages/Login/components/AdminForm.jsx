@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Input, Form, Button } from 'antd';
+import { Input, Form, Button, message } from 'antd';
 import { LockOutlined, MailOutlined } from '@ant-design/icons';
 import { login } from '@/api/index';
 
@@ -18,6 +18,8 @@ export default function AdminForm({
       localStorage.setItem('identity', 'Admin');
       sessionStorage.setItem('token', data.bearToken);
       toggleLogin(true);
+    }else{
+      message.error("登陆失败！");
     }
     setLoading(false);
   };

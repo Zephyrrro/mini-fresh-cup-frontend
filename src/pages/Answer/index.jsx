@@ -1,7 +1,8 @@
 import React from 'react';
-import { Layout, List, Space, Button, Input, Divider,Tag,Row,Col } from 'antd';
-import { QuestionCircleOutlined,MessageOutlined } from '@ant-design/icons';
+import { Layout, List, Space, Button, Input, Divider,Tag,Row,Col,message } from 'antd';
+import { QuestionCircleOutlined,MessageOutlined,CheckOutlined } from '@ant-design/icons';
 import { getQuestion, getQuestionAnswer, answerQuestion,getNotice } from '@/api';
+import {getCookie} from '@/pages/Answer/cookie';
 
 const { Content, Sider } = Layout;
 
@@ -54,7 +55,7 @@ class NoticeForm extends React.Component{
 }
 
 class QuestionList extends React.Component {
-  handleClick = (id, e) => {
+  handleClick = id => {
     this.props.SetId(id);
   };
 
@@ -103,19 +104,32 @@ class AnswerForm extends React.Component {
         <Divider orientation="left">题目{+this.props.id}</Divider>
         <p>{this.props.question}</p>
         <Input.TextArea value={this.props.content} onChange={e => this.props.handleChange(e.target.value)}/>
-        <Tag color="green">已保存</Tag>
+        <Button icon={<CheckOutlined />} onClick={e =>this.props.handleSave()}>提交</Button>
       </div>
     );
   }
 }
 
 class AnswerPage extends React.Component {
+  handleSave(){
+    answerQuestion({ questionId: this.state.AnswerId, content: this.state.Answer }).then(res=>{
+      if(res.data.success===true){
+        message.success("提交成功！")
+      }else
+        message.error("出现错误！错误码"+res.data.statusCode);
+    })
+  }
   handleChange = (value) => {
     this.setState({Answer:value});
-    answerQuestion({ questionId: this.state.AnswerId, content: value });
+    document.cookie="id"+this.state.AnswerId+"="+value+";SameSite=Strict";
+    console.log(document.cookie);
   };
 
   GetAnswer(id) {
+    const cookie = getCookie('id' + id);
+    if(cookie!='')
+      this.setState({ Answer: cookie });
+    else
     getQuestionAnswer().then(res => {
       res.data.data.answer.map(obj => {
         if (obj.question.id === id) {
@@ -130,6 +144,7 @@ class AnswerPage extends React.Component {
     QuestionArray.map(que => {
       if (que.id === id) {
         this.setState({ AnswerId: id, Question: que.question });
+        //在这里运用cookie获取本地信息
         this.GetAnswer(id);
       }
     });
@@ -165,7 +180,9 @@ class AnswerPage extends React.Component {
             <Row>
               <Col span={15}>
                 <AnswerForm id={this.state.AnswerId} question={this.state.Question} content={this.state.Answer}
-                            handleChange={this.handleChange.bind(this)}/>
+                            handleChange={this.handleChange.bind(this)}
+                            handleSave={this.handleSave.bind(this)}
+                />
               </Col>
               <Col span={1} />
               <Col span={8}>

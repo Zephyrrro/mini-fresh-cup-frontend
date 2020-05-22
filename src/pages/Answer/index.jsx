@@ -121,7 +121,7 @@ class AnswerPage extends React.Component {
   }
   handleChange = (value) => {
     this.setState({Answer:value});
-    document.cookie="id"+this.state.AnswerId+"="+value+";SameSite=Strict";
+    document.cookie="id"+this.state.AnswerId+"="+encodeURIComponent(value)+";SameSite=Strict";
     console.log(document.cookie);
   };
 
